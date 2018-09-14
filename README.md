@@ -5,9 +5,11 @@
 This is an application that allows its users to created blogs and it also allows the writer to delete their own blogs as well as like and idslike other users blogs.The users are also able to leave critisism in form of coments and in case of a toxic comment the writer is able to delete it.The application uses a sign up feature which is required if a user wants to write their own blogs.
 ## Setup/Installation Requirements
 * this application is writen in python and uses the flask frame work.so install the necesary requirements bfore begining.
-*open the terminal and navigate to the folder with the project in it
+* open the terminal and navigate to the folder with the project in it
 * enter the virtual environment using the following command 'source virtual/bin/activate
-* format
+* from there run the application with the following command 'python3.7 manage.py
+## Technologies Used
+this application was written using the pyhton language along with the flask framework extensions that alow it to function properly. It was written using vs code.Brew was used to install most of the extensions as well as pip.
 ## Known Bugs
 at the moment there are not any know bugs.}
 ## Support and contact details
