@@ -1,4 +1,4 @@
-MAIL_USERNAME=kemrenfemur23@gmail.com
+export MAIL_USERNAME=kemrenfemur23@gmail.com
 export MAIL_PASSWORD=jerkaholic
 
 export SECRET_KEYs=jelly

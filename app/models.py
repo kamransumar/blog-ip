@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     image = db.Column(db.String,  default='default.jpg')
     email = db.Column(db.String(30))
     pass_secure = db.Column(db.String(255))
-    blogs = db.relationship('blog', backref='author', lazy='dynamic')
+    blogs = db.relationship('Blog', backref='author', lazy='dynamic')
     comments = db.relationship('Comment', backref='comment', lazy='dynamic')
 
     @property
@@ -35,29 +35,6 @@ class User(db.Model, UserMixin):
         return f'User {self.id}, {self.name}, {self.username}, {self.image}, {self.email}, {self.blogs}, {self.comment}'
 
 
-class Blog(db.Model, UserMixin):
-    __tablename__ = 'blogs'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    content = db.Column(db.Text)
-    comments_id = db.relationship(
-        'Comment', backref='comments', lazy='dynamic')
-    time = db.Column(db.DateTime)
-
-    def save_blog(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_blogs(cls, id):
-        blog = Blog.query.filter_by(blog_id=id).all()
-        return blog
-
-    def __repr__(self):
-        return f'blog {self.id}, {self.category}, {self.title}, {self.author}, {self.content}, {self.comment}'
-
-
 class Comment(db.Model, UserMixin):
     __tablename__ = 'comments'
 
@@ -70,14 +47,19 @@ class Comment(db.Model, UserMixin):
     time = db.Column(db.DateTime)
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
 
-    def save_comment(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_comments(cls, id):
-        comments = Comment.query.filter_by(comment_id=id).all()
-        return comments
-
     def __repr__(self):
         return f'Comment {self.id}, {self.ratings}, {self.like}, {self.dislike}, {self.content}'
+
+
+class Blog(db.Model, UserMixin):
+    __tablename__ = 'blogs'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    content = db.Column(db.Text)
+    comments_id = db.relationship(
+        'Comment', backref='comments', lazy='dynamic')
+    time = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return f'Blog {self.id}, {self.category}, {self.title}, {self.author}, {self.content}, {self.comment}'
