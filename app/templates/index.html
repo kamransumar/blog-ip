@@ -1,0 +1,30 @@
+{% extends 'base.html' %}{% block content %}
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <button type="button"><a href="/blog"> Add Blog</a></button>
+    <div class="card-columns">
+
+        {% for blog in blogs %}
+        <div class="card border-secondary">
+            <div class="card-header">
+                <h5>{{blog.title}}</h5>
+            </div>
+
+
+            <div class="card-body text-secondary">
+                <p class="card-text">{{blog.content}}</p>
+            </div>
+        </div>
+    </div>
+
+    {{blog.title}}
+    {{blog.content}}
+</body>
+
+</html>
+
+{% endfor%}
+{% endblock%}
