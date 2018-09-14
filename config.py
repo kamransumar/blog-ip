@@ -5,7 +5,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://macuser:1234@localhost/blogdb'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://macuser:1234@localhost/blogdb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
@@ -30,8 +30,8 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://macuser:1234@localhost/blogdb'
-    SECRET_KEY = 'jelly'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://macuser:1234@localhost/blogdb'
+    # SECRET_KEY = 'jelly'
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
     pass
@@ -44,7 +44,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    SECRET_KEY = 'jelly'
+    # SECRET_KEY = 'jelly'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://macuser:1234@localhost/blogdb'
 
     DEBUG = True
