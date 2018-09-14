@@ -18,7 +18,7 @@ def register():
                     username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        mail_message("Welcome to the Pitchers Table",
+        mail_message("Welcome to the Bloggers tavern",
                      "email/welcome_user", user.email, user=user)
 
         return redirect(url_for('auth.login'))

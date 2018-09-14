@@ -14,7 +14,7 @@ def index():
     '''
 
     title = 'Home - Welcome to The best Movie Review Website Online'
-    blogs = blog.query.all()
+    blogs = Blog.query.all()
 
     return render_template('index.html', title=title, blogs=blogs)
 
@@ -61,7 +61,7 @@ def update_pic(name):
     return redirect(url_for('main.profile', name=name))
 
 
-@main.route('/pitch/', methods=['GET', 'POST'])
+@main.route('/blog/', methods=['GET', 'POST'])
 # @login_required
 def new_blog():
     form = BlogForm()

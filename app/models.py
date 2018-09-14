@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
 
 
 class Blog(db.Model, UserMixin):
-    __tablename__ = 'blogss'
+    __tablename__ = 'blogs'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
