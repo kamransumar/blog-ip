@@ -1,8 +1,8 @@
-"""creating tables
+"""deploymentation4
 
-Revision ID: e296cb78f781
+Revision ID: 0a3f56ece08a
 Revises: 
-Create Date: 2018-09-14 18:23:11.776543
+Create Date: 2018-09-18 10:39:08.113307
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e296cb78f781'
+revision = '0a3f56ece08a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,7 +36,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('comments',
-    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ratings', sa.Integer(), nullable=True),
     sa.Column('like', sa.Integer(), nullable=True),
@@ -44,6 +43,7 @@ def upgrade():
     sa.Column('content', sa.Text(), nullable=True),
     sa.Column('time', sa.DateTime(), nullable=True),
     sa.Column('blog_id', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['blog_id'], ['blogs.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
