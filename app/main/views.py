@@ -63,7 +63,7 @@ def update_pic(name):
 
 
 @main.route('/blog/', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def new_blog():
     form = BlogForm()
     if form.validate_on_submit():
@@ -105,6 +105,14 @@ def new_comment(id):
     return render_template('newcomment.html', title=title, comment_form=form, blog=blog, )
 
 
+@main.route('/allblogs')
+def blog_list():
+
+    blogs = Blog.query.all()
+
+    return render_template('blog.html', blogs=blogs)
+
+
 @main.route('/oneblog/<int:id>', methods=['GET', 'POST'])
 def one_blog(id):
 
@@ -120,13 +128,13 @@ def one_blog(id):
             dislike=0,
             content=form.content.data,
             time=datetime.utcnow(),
-            comments=blog,
-            comment=current_user)
+            blog=blog,
+            author=current_user)
 
         # save comment
         db.session.add(new_comment)
         db.session.commit()
 
-    comments = blog.comments_id
+    comments = blog.comment_id
 
-    return render_template('viewblog.html', blog=blog, id=id, comment_form=form, comment_id=comments)
+    return render_template('viewblog.html', blog=blog, comment_form=form, comments=comments)

@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(30))
     pass_secure = db.Column(db.String(255))
     blogs = db.relationship('Blog', backref='author', lazy='dynamic')
-    comments = db.relationship('Comment', backref='comment', lazy='dynamic')
+    comments = db.relationship('Comment', backref='author', lazy='dynamic')
 
     @property
     def password(self):
@@ -38,7 +38,6 @@ class User(db.Model, UserMixin):
 class Comment(db.Model, UserMixin):
     __tablename__ = 'comments'
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     id = db.Column(db.Integer, primary_key=True)
     ratings = db.Column(db.Integer)
     like = db.Column(db.Integer)
@@ -48,8 +47,20 @@ class Comment(db.Model, UserMixin):
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
+    # def save_comment(self):
+    #     ''' Save the comments '''
+    #     db.session.add(self)
+    #     db.session.commit()
+
+    # # display comments
+
+    # @classmethod
+    # def get_comment(cls, id):
+    #     comments = Comment.query.filter_by(blog_id=id).all()
+    #     return comments
+
     def __repr__(self):
-        return f'Comment {self.id}, {self.ratings}, {self.like}, {self.dislike}, {self.content}'
+        return f'Comment {self.id}, {self.content}, {self.time}'
 
 
 class Blog(db.Model, UserMixin):
@@ -58,8 +69,8 @@ class Blog(db.Model, UserMixin):
     title = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     content = db.Column(db.Text)
-    comments_id = db.relationship(
-        'Comment', backref='comments', lazy='dynamic')
+    comment_id = db.relationship(
+        'Comment', backref='blog', lazy='dynamic')
     time = db.Column(db.DateTime)
 
     def __repr__(self):
