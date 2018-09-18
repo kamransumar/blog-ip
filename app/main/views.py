@@ -129,4 +129,4 @@ def one_blog(id):
 
     comments = blog.comments_id
 
-    return render_template('viewblog.html', blog=blog, id=id, comment_form=form, comments=comments)
+    return render_template('viewblog.html', blog=blog, id=id, comment_form=form, comment_id=comments)

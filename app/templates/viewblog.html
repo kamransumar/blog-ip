@@ -10,7 +10,7 @@
                     <h4 class="text-center">your blog:</h4><br>
                     <p>{{blog.content}}</p>
                     {{ wtf.quick_form(comment_form) }}
-                    {%for comment in comments%}
+                    {%for comment in comments_id%}
                     <div class="jumbotron">
 
                         <p>{{comment.content}}</p>
