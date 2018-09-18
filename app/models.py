@@ -46,6 +46,7 @@ class Comment(db.Model, UserMixin):
     content = db.Column(db.Text)
     time = db.Column(db.DateTime)
     blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def __repr__(self):
         return f'Comment {self.id}, {self.ratings}, {self.like}, {self.dislike}, {self.content}'

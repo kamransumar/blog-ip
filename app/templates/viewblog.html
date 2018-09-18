@@ -1,0 +1,27 @@
+{% extends 'base.html' %}{% import "bootstrap/wtf.html" as wtf %}{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="card-columns">
+            <h4></h4>
+            <div class="card">
+                <h4 class="card-title"><strong><a href="/oneblog/{{blog.id}}"> {{blog.title | capitalize}}</a></strong></h4>
+                <p class="card-text">Time posted:{{blog.time}}</p><br>
+                <div class="card-body">
+                    <h4 class="text-center">your blog:</h4><br>
+                    <p>{{blog.content}}</p>
+                    {{ wtf.quick_form(comment_form) }}
+                    {%for comment in comments%}
+                    <div class="jumbotron">
+
+                        <p>{{comment.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+{%endfor%}
+{% endblock%}

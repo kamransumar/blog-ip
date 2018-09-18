@@ -1,1 +1,1 @@
-SECRET_KEY = 'jelly'
+SECRET_KEY = '0787251277'

@@ -1,9 +1,10 @@
 from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
 from . import main
-from ..models import User, Blog
+from ..models import User, Blog, Comment
 from .forms import *
 from .. import db, photos
+from datetime import datetime
 # Views
 
 
@@ -76,3 +77,56 @@ def new_blog():
         db.session.commit()
 
     return render_template('blog.html', blog_form=form)
+
+
+@main.route('/blog/comment/new/<int:id>', methods=['GET', 'POST'])
+@login_required
+def new_comment(id):
+    '''
+    view category that returns a form to create a new comment
+    '''
+    form = CommentForm()
+    blog = Blog.query.filter_by(id=id).first()
+
+    if form.validate_on_submit():
+        title = form.title.data
+        comment = form.comment.data
+
+        # comment instance
+        new_comment = Comment(
+            blog_id=blog.id, post_comment=comment, title=title, user=current_user)
+
+        # save comment
+        new_comment.save_comment()
+
+        return redirect(url_for('.blogs', id=blog.id))
+
+    title = f'{blog.title} comment'
+    return render_template('newcomment.html', title=title, comment_form=form, blog=blog, )
+
+
+@main.route('/oneblog/<int:id>', methods=['GET', 'POST'])
+def one_blog(id):
+
+    blog = Blog.query.get(id)
+    form = CommentForm()
+    blog = Blog.query.filter_by(id=id).first()
+
+    if form.validate_on_submit():
+        # comment instance
+        new_comment = Comment(
+            ratings=0,
+            like=0,
+            dislike=0,
+            content=form.content.data,
+            time=datetime.utcnow(),
+            comments=blog,
+            comment=current_user)
+
+        # save comment
+        db.session.add(new_comment)
+        db.session.commit()
+
+    comments = blog.comments_id
+
+    return render_template('viewblog.html', blog=blog, id=id, comment_form=form, comments=comments)
