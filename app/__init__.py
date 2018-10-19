@@ -18,6 +18,7 @@ db = SQLAlchemy()
 bootstrap = Bootstrap()
 # Initializing application
 photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
 mail = Mail()
 
 
